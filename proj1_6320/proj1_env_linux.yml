@@ -1,0 +1,18 @@
+name: proj1
+channels:
+  - conda-forge # Move this to the top
+  - pytorch # put this above 'defaults'
+  - defaults
+dependencies:
+  - python=3.10
+  - jupyter
+  - matplotlib
+  - pip
+  - pytest
+  - pytorch
+  - torchvision
+  - torchaudio
+  - cpuonly
+  - pyyaml
+  - pillow
+  - numpy

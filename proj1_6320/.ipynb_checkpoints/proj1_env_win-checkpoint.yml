@@ -1,0 +1,15 @@
+name: proj1
+channels:
+  - defaults
+  - pytorch
+dependencies:
+  - python=3.10
+  - jupyter
+  - matplotlib
+  - pip
+  - pytest
+  - pytorch-cpu
+  - torchvision-cpu
+  - pyyaml
+  - pillow
+  - numpy
