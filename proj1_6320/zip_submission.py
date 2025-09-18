@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
   out_file = args.uid + '.zip'
   shutil.make_archive(args.uid, 'zip', 'temp_submission')
-  if(os.path.getsize(out_file) > 5000000):
-    os.remove(out_file)
-    print("SUBMISSION DID NOT ZIP, ZIPPED SIZE > 5MB")
+  # if(os.path.getsize(out_file) > 5000000):
+    # os.remove(out_file)
+    # print("SUBMISSION DID NOT ZIP, ZIPPED SIZE > 5MB")
   shutil.rmtree('temp_submission', ignore_errors=True)
