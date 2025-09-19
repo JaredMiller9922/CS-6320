@@ -1,0 +1,16 @@
+# List of required and optional directories/files for submission packaging
+
+required_directories:
+  - proj2_code       # contains all your Python/Notebook code
+  - data             # contains all input images provided for the project
+  - results          # contains all generated output images
+
+required_files: []
+
+optional_directories:
+  - docs             # if students included any extra documentation
+  - experiments      # if students tried additional experiments
+
+optional_files:
+  - README.md        # optional project readme
+  - report.pdf       # optional written report
