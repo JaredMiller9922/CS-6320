@@ -22,12 +22,11 @@ def point_line_distance(line, point):
 
     a, b, c = line
     u, v, w = point
-    error = 0
 
     #######################################################################
     # YOUR CODE HERE                                                      #
     #######################################################################
-
+    error = (a*u + b*v + c) / np.sqrt(a**2 + b**2)
     #######################################################################
     #                           END OF YOUR CODE                          #
     #######################################################################
@@ -68,6 +67,13 @@ def signed_point_line_errors(x_0s, F, x_1s):
     #######################################################################
     # YOUR CODE HERE  |  Distance Computation                             #
     #######################################################################
+    # Generate a list of all pairs
+    for x_0, x_1 in zip(x_0s, x_1s):
+            dist1 = point_line_distance(F @ x_1, x_0)
+            dist2 = point_line_distance(F.T @ x_0, x_1)
+            errors.append([dist1, dist2])
+
+    errors = np.array(errors).ravel().tolist()
 
     #######################################################################
     #                           END OF YOUR CODE                          #

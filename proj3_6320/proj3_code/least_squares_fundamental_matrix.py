@@ -37,12 +37,11 @@ def optimize(p0, x_0s, x_1s):
     #######################################################################
     # YOUR CODE HERE                                                      #
     #######################################################################
-
+    result = least_squares(fun = objective_function, x0 = p0.ravel(), method = 'lm', jac='2-point', args=(x_0s,x_1s))
+    optimized_F = result.x.reshape(3,3)
     #######################################################################
     #                           END OF YOUR CODE                          #
     #######################################################################
-
-    optimized_F = result.x
     return optimized_F
 
 
