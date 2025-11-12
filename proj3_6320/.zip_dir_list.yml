@@ -1,5 +1,5 @@
 required_directories:
-  - proj4_code
+  - proj3_code
   - data
   - results
 required_files:
