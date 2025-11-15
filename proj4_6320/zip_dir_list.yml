@@ -1,0 +1,11 @@
+# ---------------------------------------------------------------------
+# CS 6320 - Project 4: Depth Estimation using Stereo
+# Submission Configuration (Full Version for Grading)
+# ---------------------------------------------------------------------
+
+# Must include all code and data used for testing/grading
+required_directories:
+  - proj4_code
+  - semiglobalmatching
+  - data
+  - unit_tests
