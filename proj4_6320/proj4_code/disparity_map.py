@@ -133,8 +133,31 @@ def calculate_cost_volume(left_img: torch.Tensor,
   ############################################################################
   # Student code begin
   ############################################################################
+  H,W,_ = left_img.shape
+  pad = block_size // 2
 
-  raise NotImplementedError('calculate_cost_volume not implemented')
+  # We realize that we lose padding on both sides so must multiply by 2
+  cost_volume = torch.full((H - (2 * pad), W - (2 * pad), max_disparity), 255.0)
+  
+  for row in range(pad, H - pad):
+    for col in range(pad, W - pad):
+      # Find bounds based off center
+      left   = col - pad
+      right  = col + pad + 1
+      top    = row - pad
+      bottom = row + pad + 1
+      
+      patch_1 = left_img[top:bottom, left:right, :]
+      
+      # We want to plus 1 because at first we don't want to shift at all
+      for d in range(0, max_disparity):
+          # Dont go out of bounds
+          if left-d < 0:
+            break
+          patch_2 = right_img[top:bottom, left - d:right - d, :]
+          similarity_error = sim_measure_function(patch_1, patch_2)
+
+          cost_volume[row-pad, col-pad, d] = similarity_error
 
   ############################################################################
   # Student code end
