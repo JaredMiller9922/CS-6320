@@ -89,7 +89,7 @@ if __name__ == "__main__":
     shutil.make_archive(args.uid, "zip", "temp_submission")
 
     # Validate size limit
-    max_size_mb = 80
+    max_size_mb = 100
     zip_size = os.path.getsize(out_file) / (10**6)
 
     if zip_size > max_size_mb:
