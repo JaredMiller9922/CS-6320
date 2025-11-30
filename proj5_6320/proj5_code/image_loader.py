@@ -61,7 +61,8 @@ class ImageLoader(data.Dataset):
     # Student code begin
     ###########################################################################
     # Get all examples 
-    path = "../" + self.curr_folder + "/**/*.jpg"
+    # path = "../" + self.curr_folder + "/**/*.jpg"
+    path = self.curr_folder + "/**/*.jpg"
     all_paths = glob.glob(path, recursive=True)
 
     # Loop through each
@@ -91,12 +92,15 @@ class ImageLoader(data.Dataset):
     ###########################################################################
     # Student code begin
     ###########################################################################
-    path = "../" + self.curr_folder + "/*"
+    # path = "../" + self.curr_folder + "/*"
+    path = self.curr_folder + "/*"
     subfolders = glob.glob(path)
     for f_idx, f_name in enumerate(subfolders):
       class_name = os.path.basename(f_name)
       classes[class_name] = f_idx
 
+    if len(classes) == 0:
+      raise RuntimeError(f"No classes found in {self.curr_folder}")
     ###########################################################################
     # Student code end
     ###########################################################################
@@ -122,9 +126,6 @@ class ImageLoader(data.Dataset):
     ###########################################################################
     # Student code begin
     ###########################################################################
-    # Go up a directory
-    path = "../" + path
-
     img = Image.open(path).convert("L")
 
     ###########################################################################

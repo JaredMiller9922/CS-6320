@@ -32,7 +32,7 @@ class Trainer():
     if cuda:
       self.model.cuda()
 
-    dataloader_args = {'num_workers': 1, 'pin_memory': True} if cuda else {}
+    dataloader_args = {'num_workers': 0, 'pin_memory': True} if cuda else {}
 
     self.train_dataset = ImageLoader(
         data_dir, split='train', transform=train_data_transforms)

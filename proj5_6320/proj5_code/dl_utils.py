@@ -21,9 +21,8 @@ def predict_labels(model: torch.nn.Module, x: torch.tensor) -> torch.tensor:
   #############################################################################
   # Student code begin
   #############################################################################
-
-  raise NotImplementedError('predict_labels not implemented')
-
+  scores = model.forward(x)
+  predicted_labels = scores.argmax(dim=1)
   #############################################################################
   # Student code end
   #############################################################################
@@ -51,9 +50,13 @@ def compute_loss(model: torch.nn.Module,
   #############################################################################
   # Student code begin
   #############################################################################
+  loss_function = torch.nn.CrossEntropyLoss(reduction='none')
+  loss = loss_function(model_output, target_labels)
 
-  raise NotImplementedError('compute_loss not implemented')
-
+  if is_normalize:
+    loss = loss.mean()
+  else:
+    loss = loss.sum()
   #############################################################################
   # Student code end
   #############################################################################

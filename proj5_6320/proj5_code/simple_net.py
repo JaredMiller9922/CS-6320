@@ -21,8 +21,30 @@ class SimpleNet(nn.Module):
     ###########################################################################
     # Student code begin
     ###########################################################################
+    # We will use softmax
+    self.loss_criterion = nn.CrossEntropyLoss()
 
-    raise NotImplementedError('__init__ not implemented')
+    self.cnn_layers = nn.Sequential(
+      nn.Conv2d(1,10,5),
+      nn.MaxPool2d(3),
+      nn.ReLU(),
+      nn.Conv2d(10,20,5),
+      nn.MaxPool2d(3),
+      nn.ReLU(),
+    )
+
+    # We can actually compute our hidden layer size dynamically
+    with torch.no_grad():
+      dummy = torch.zeros(1, 1, 64, 64)
+      conv_out = self.cnn_layers(dummy)
+      flat_dim = conv_out.numel()
+
+    self.fc_layers = nn.Sequential(
+      nn.Linear(flat_dim,100),
+      nn.ReLU(),
+      nn.Linear(100, 15),
+    )
+
 
     ###########################################################################
     # Student code end
@@ -41,9 +63,12 @@ class SimpleNet(nn.Module):
     ###########################################################################
     # Student code begin
     ###########################################################################
+    x = self.cnn_layers(x)
+    # x.view acts the same as x.reshape
+    x = x.view(x.size(0), -1)
 
-    raise NotImplementedError('forward not implemented')
-
+    x = self.fc_layers(x)
+    model_output = x
     ###########################################################################
     # Student code end
     ###########################################################################
