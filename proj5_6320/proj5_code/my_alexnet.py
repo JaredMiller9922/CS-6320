@@ -28,8 +28,38 @@ class MyAlexNet(nn.Module):
     ###########################################################################
     # Student code begin
     ###########################################################################
+    # We will use softmax
+    self.loss_criterion = nn.CrossEntropyLoss()
 
-    raise NotImplementedError('__init__ not implemented')
+    # Get pretrained AlexNet
+    self.model = alexnet(pretrained = True)
+
+    # Match convolutional layers of CNN
+    self.cnn_layers = self.model.features
+
+    #.classifier.children returns each layer of the network
+    default_classifier = list(self.model.classifier.children())
+
+    # Update the last layer
+    new_classifier = default_classifier[:-1]
+    new_classifier.append(nn.Linear(4096,15))
+
+    # Convert back to sequential
+    self.fc_layers = nn.Sequential(*new_classifier)
+
+    # Start by freezing all parameters
+    for param in self.fc_layers.parameters():
+       param.requires_grad = False
+
+    # Start by freezing all parameters
+    for param in self.cnn_layers.parameters():
+       param.requires_grad = False
+      
+    # Unfreeze the final layer
+    for param in self.fc_layers[-1].parameters():
+       param.requires_grad = True
+
+    self.model.classifier = self.fc_layers
 
     ###########################################################################
     # Student code end
@@ -51,8 +81,13 @@ class MyAlexNet(nn.Module):
     ###########################################################################
     # Student code begin
     ###########################################################################
-    raise NotImplementedError('forward not implemented')
+    # Run the forward pass
+    x = self.cnn_layers(x)
+    # x.view acts the same as x.reshape
+    x = x.view(x.size(0), -1)
 
+    x = self.fc_layers(x)
+    model_output = x
     ###########################################################################
     # Student code end
     ###########################################################################

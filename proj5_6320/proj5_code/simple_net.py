@@ -24,6 +24,7 @@ class SimpleNet(nn.Module):
     # We will use softmax
     self.loss_criterion = nn.CrossEntropyLoss()
 
+    # Default Values
     self.cnn_layers = nn.Sequential(
       nn.Conv2d(1,10,5),
       nn.MaxPool2d(3),
@@ -33,17 +34,35 @@ class SimpleNet(nn.Module):
       nn.ReLU(),
     )
 
+    # Experimental Values
+    # self.cnn_layers = nn.Sequential(
+      # nn.Conv2d(1,10,3),
+      # nn.MaxPool2d(3),
+      # nn.ReLU(),
+      # nn.Conv2d(10,20,3),
+      # nn.MaxPool2d(3),
+      # nn.ReLU(),
+    # )
+
     # We can actually compute our hidden layer size dynamically
     with torch.no_grad():
       dummy = torch.zeros(1, 1, 64, 64)
       conv_out = self.cnn_layers(dummy)
       flat_dim = conv_out.numel()
 
+    # Default Values
     self.fc_layers = nn.Sequential(
       nn.Linear(flat_dim,100),
       nn.ReLU(),
       nn.Linear(100, 15),
     )
+
+    # Experiemental Values
+    # self.fc_layers = nn.Sequential(
+      # nn.Linear(flat_dim,10),
+      # nn.ReLU(),
+      # nn.Linear(10, 15),
+    # )
 
 
     ###########################################################################

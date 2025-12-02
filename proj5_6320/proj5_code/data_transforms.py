@@ -62,7 +62,20 @@ def get_data_augmentation_transforms(inp_size: Tuple[int, int],
   # Student code begin
   #############################################################################
 
-  raise NotImplementedError('get_data_augmentation_transforms not implemented')
+  aug_transforms = transforms.Compose([
+    transforms.RandomResizedCrop(
+      size=inp_size, 
+      scale=(0.8, 1.0)
+    ),
+    transforms.RandomHorizontalFlip(p=0.5),  # Best augmentation
+    transforms.RandomRotation(12),           # Small rotation
+    transforms.ColorJitter(
+        brightness=0.20, 
+        contrast=0.20
+    ),                                       # Very small jitter (safe)
+    transforms.ToTensor(),
+    transforms.Normalize(pixel_mean, pixel_std),
+  ])
 
   #############################################################################
   # Student code end
